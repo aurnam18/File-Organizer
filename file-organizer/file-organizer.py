@@ -36,7 +36,7 @@ DIRECTORIES = {
 
 #The path of the directory to be sorted
 #edit this to where you placed your test-file folder
-path = '<YOUR_PATH>'
+path = "/home/aurnam18/github/File-Organizer/file-organizer/test-file"
 
 #Creates a list with the filenames in the directory
 list_ = os.listdir(path)
@@ -47,24 +47,28 @@ for file_ in list_:
     ##START CODING HERE
 
     # 1. Create variables name and ext and set them to the file_'s name and extention
-
+    name, ext = os.path.splitext(file_)
     #Checks if there is no extension
     #If the extension variable is empty, moves onto the next iteration
     if ext == '':
         continue
 
     # 2. Loop through DIRECTORIES
+    for key in DIRECTORIES:
 
         # 3. If the extension is in one of the lists
+        if ext in DIRECTORIES[key]:
 
             # 4. Check if the key is a folder in the current directory already
-
+            if key in os.listdir(path):
                 # 5. If the key is already a folder in the directory,
                 # move the file into that directory using shutil.move
-
+                shutil.move(os.path.join(path, file_), os.path.join(path, key))
             # 6. If the folder is not in the current directory already,
             # create the folder
+            else:
+                os.mkdir(os.path.join(path, key))
 
                 # 7. Move the file into that directory using shutil.move
-
+                shutil.move(os.path.join(path, file_), os.path.join(path, key))
         # 8. Else, continue to the next iteration
